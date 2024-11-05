@@ -2,7 +2,7 @@
 import express from 'express';
 import dotenv from "dotenv"
 import mongoose from 'mongoose';
-import UsersModel from './src/models/usersModel.js';
+import RootRouter from './src/routes/indexRoute.js';
 
 dotenv.config();
 const app = express();
@@ -11,15 +11,7 @@ const connectionstring = `mongodb+srv://lesson:2YR6qIcWguglD1Ra@thang.mcnah.mong
 await mongoose.connect(connectionstring).then(() => {
     console.log('successful')
 });
-// app.use('/',RootRouter)
-app.use('/', async (req, res) => {
-    try {
-        const u = await UsersModel.find({})
-        return res.send(u)
-    } catch (err) {
-        console.log(err)
-    }
-})
+app.use('/',RootRouter)
 
 app.listen(8080, () => {
     console.log('success')
